@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int lowerBound, upperBound, number;
+
+    cout << "Введіть нижню межу діапазону: ";
+    cin >> lowerBound;
+    cout << "Введіть верхню межу діапазону: ";
+    cin >> upperBound;
+
+    if (lowerBound > upperBound) {
+        cout << "Нижня межа не може бути більшою за верхню. Будь ласка, введіть коректні межі.\n";
+        return 1;
+    }
+
+    while (true) {
+        cout << "Введіть число: ";
+        cin >> number;
+
+        if (number >= lowerBound && number <= upperBound) {
+            cout << "Число " << number << " входить в діапазон [" << lowerBound << ", " << upperBound << "].\n";
+            break;
+        } else {
+            cout << "Число не входить в діапазон. Будь ласка, спробуйте ще раз.\n";
+        }
+    }
+
+    return 0;
+}
