@@ -1,15 +1,6 @@
 #include <iostream>
 using namespace std;
 
-void drawSquare(int size) {
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            cout << "* ";
-        }
-        cout << endl;
-    }
-}
-
 void drawRectangle(int width, int height) {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
@@ -19,76 +10,41 @@ void drawRectangle(int width, int height) {
     }
 }
 
-void drawTriangle(int height) {
-    for (int i = 1; i <= height; i++) {
-        for (int j = 0; j < i; j++) {
-            cout << "* ";
-        }
-        cout << endl;
-    }
-}
-
-void drawCircle(int radius) {
-    for (int i = -radius; i <= radius; i++) {
-        for (int j = -radius; j <= radius; j++) {
-            if (i*i + j*j <= radius*radius)
-                cout << "* ";
-            else
-                cout << "  ";
-        }
-        cout << endl;
-    }
-}
-
 int main() {
     int choice;
     do {
-        cout << "Виберіть фігуру для відображення:\n";
-        cout << "1. Квадрат\n";
-        cout << "2. Прямокутник\n";
-        cout << "3. Трикутник\n";
-        cout << "4. Коло\n";
-        cout << "5. Вийти\n";
+        cout << "Виберіть тип прямокутника для відображення:\n";
+        cout << "1. Малий прямокутник\n";
+        cout << "2. Середній прямокутник\n";
+        cout << "3. Великий прямокутник\n";
+        cout << "4. Вийти\n";
         cout << "Ваш вибір: ";
         cin >> choice;
 
         switch (choice) {
             case 1: {
-                int size;
-                cout << "Введіть розмір квадрата: ";
-                cin >> size;
-                drawSquare(size);
+                int width = 5, height = 3;
+                drawRectangle(width, height);
                 break;
             }
             case 2: {
-                int width, height;
-                cout << "Введіть ширину і висоту прямокутника: ";
-                cin >> width >> height;
+                int width = 10, height = 6;
                 drawRectangle(width, height);
                 break;
             }
             case 3: {
-                int height;
-                cout << "Введіть висоту трикутника: ";
-                cin >> height;
-                drawTriangle(height);
+                int width = 15, height = 9;
+                drawRectangle(width, height);
                 break;
             }
-            case 4: {
-                int radius;
-                cout << "Введіть радіус кола: ";
-                cin >> radius;
-                drawCircle(radius);
-                break;
-            }
-            case 5:
+            case 4:
                 cout << "Вихід з програми.\n";
                 break;
             default:
                 cout << "Невірний вибір. Спробуйте знову.\n";
         }
         cout << endl;
-    } while (choice != 5);
+    } while (choice != 4);
 
     return 0;
 }
