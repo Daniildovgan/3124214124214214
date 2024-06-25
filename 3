@@ -1,0 +1,91 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+using namespace std;
+
+// Структура для зберігання інформації про товар
+struct Product {
+    string name;
+    double price;
+    int stock;
+};
+
+// Функція для виведення списку товарів
+void displayProducts(Product products[], int size) {
+    cout << "Доступні товари:\n";
+    cout << left << setw(5) << "ID" << setw(20) << "Назва" << setw(10) << "Ціна" << setw(10) << "На складі" << endl;
+    for (int i = 0; i < size; i++) {
+        cout << left << setw(5) << i + 1 << setw(20) << products[i].name << setw(10) << products[i].price << setw(10) << products[i].stock << endl;
+    }
+}
+
+int main() {
+    const int numProducts = 4;
+    Product products[numProducts] = {
+        {"Новорічна ялинка", 500.0, 10},
+        {"Гірлянда", 150.0, 50},
+        {"Іграшка на ялинку", 30.0, 100},
+        {"Подарунковий набір", 200.0, 20}
+    };
+
+    double totalRevenue = 0.0;
+    char continueShopping;
+
+    do {
+        double totalSum = 0.0;
+        bool hasDiscount = false;
+
+        cout << "Новий клієнт:\n";
+        displayProducts(products, numProducts);
+
+        while (true) {
+            int productId, quantity;
+            cout << "Виберіть ID товару (0 для завершення): ";
+            cin >> productId;
+
+            if (productId == 0) {
+                break;
+            }
+
+            if (productId < 1 || productId > numProducts) {
+                cout << "Невірний ID товару. Спробуйте ще раз.\n";
+                continue;
+            }
+
+            cout << "Введіть кількість товару: ";
+            cin >> quantity;
+
+            if (quantity <= 0) {
+                cout << "Кількість має бути більше 0. Спробуйте ще раз.\n";
+                continue;
+            }
+
+            if (quantity > products[productId - 1].stock) {
+                cout << "Недостатньо товару на складі. Спробуйте ще раз.\n";
+                continue;
+            }
+
+            double sum = products[productId - 1].price * quantity;
+            totalSum += sum;
+            products[productId - 1].stock -= quantity;
+
+            cout << "Додано до покупки: " << products[productId - 1].name << " x" << quantity << " на суму " << sum << " грн.\n";
+        }
+
+        if (totalSum > 1000.0) {
+            hasDiscount = true;
+            totalSum *= 0.9;
+            cout << "Ви отримали знижку 10%! Нова сума: " << totalSum << " грн.\n";
+        }
+
+        cout << "Загальна сума покупки: " << totalSum << " грн.\n";
+        totalRevenue += totalSum;
+
+        cout << "Чи є ще клієнти? (y/n): ";
+        cin >> continueShopping;
+    } while (continueShopping == 'y' || continueShopping == 'Y');
+
+    cout << "Загальна виручка магазину: " << totalRevenue << " грн.\n";
+
+    return 0;
+}
